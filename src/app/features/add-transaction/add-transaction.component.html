@@ -1,0 +1,22 @@
+<section class="page-head">
+  <div>
+    <h1>{{ isEditMode ? 'Edit transaction' : 'Add transaction' }}</h1>
+    <p class="page-subtitle">
+      {{ isEditMode ? 'Update the details and save.' : 'Record income or an expense.' }}
+    </p>
+  </div>
+</section>
+
+<section class="card form-card">
+  @if (notFound) {
+    <p class="empty-state">That transaction no longer exists — it may have been deleted.</p>
+    <button type="button" class="btn btn--primary" (click)="onCancel()">Back to transactions</button>
+  } @else {
+    <app-transaction-form
+      [initial]="initialValue"
+      [submitLabel]="isEditMode ? 'Save changes' : 'Add transaction'"
+      (submitted)="onSubmit($event)"
+      (cancelled)="onCancel()"
+    ></app-transaction-form>
+  }
+</section>

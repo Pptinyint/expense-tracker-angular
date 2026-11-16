@@ -1,0 +1,35 @@
+<header class="app-header">
+  <div class="container header-inner">
+    <a class="brand" routerLink="/dashboard">
+      <span class="brand-mark" aria-hidden="true">₹</span>
+      {{ appName }}
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Dashboard
+      </a>
+      <a routerLink="/transactions" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Transactions
+      </a>
+      <a routerLink="/add" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Add
+      </a>
+      <a routerLink="/categories" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Categories
+      </a>
+      <a routerLink="/summary" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Summary
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="container app-main">
+  <router-outlet />
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>Data is stored only in your browser (localStorage). No account, no server.</p>
+  </div>
+</footer>

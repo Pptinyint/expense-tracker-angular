@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="tx-form" novalidate>
+  <div class="field">
+    <label class="field-label">Type</label>
+    <div class="type-toggle" role="radiogroup" aria-label="Transaction type">
+      <label class="type-option" [class.type-option--expense]="form.controls.type.value === 'expense'">
+        <input type="radio" formControlName="type" value="expense" />
+        <span>Expense</span>
+      </label>
+      <label class="type-option" [class.type-option--income]="form.controls.type.value === 'income'">
+        <input type="radio" formControlName="type" value="income" />
+        <span>Income</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="amount">Amount (₹)</label>
+    <input
+      id="amount"
+      type="number"
+      formControlName="amount"
+      inputmode="decimal"
+      min="0.01"
+      step="0.01"
+      placeholder="0.00"
+      class="input"
+      [class.input--invalid]="amountControl.invalid && amountControl.touched"
+    />
+    @if (amountControl.invalid && amountControl.touched) {
+      <p class="field-error">Enter an amount greater than 0.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="category">Category</label>
+    <select
+      id="category"
+      formControlName="categoryId"
+      class="input"
+      [class.input--invalid]="categoryControl.invalid && categoryControl.touched"
+    >
+      <option value="" disabled>Select a category</option>
+      @for (category of categoryOptions$ | async; track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
+    @if (categoryControl.invalid && categoryControl.touched) {
+      <p class="field-error">Choose a category.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="date">Date</label>
+    <input
+      id="date"
+      type="date"
+      formControlName="date"
+      class="input"
+      [class.input--invalid]="dateControl.invalid && dateControl.touched"
+    />
+    @if (dateControl.invalid && dateControl.touched) {
+      <p class="field-error">Pick a date.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="note">Note <span class="field-optional">(optional)</span></label>
+    <input
+      id="note"
+      type="text"
+      formControlName="note"
+      maxlength="120"
+      placeholder="e.g. Weekly groceries"
+      class="input"
+      [class.input--invalid]="noteControl.invalid && noteControl.touched"
+    />
+    @if (noteControl.invalid && noteControl.touched) {
+      <p class="field-error">Keep the note under 120 characters.</p>
+    }
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn--ghost" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="btn btn--primary">{{ submitLabel }}</button>
+  </div>
+</form>
